@@ -1,1 +1,7 @@
- 
+<div class="bg-gray-100 p-4 rounded-md mb-4">
+    <div class="flex justify-between items-center mb-2">
+        <span class="font-semibold">{{ comment.author.username }}</span>
+        <span class="text-sm text-gray-500">{{ comment.date_posted.strftime('%B %d, %Y') }}</span>
+    </div>
+    <p>{{ comment.content }}</p>
+</div>
