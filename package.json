@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "build-css": "tailwindcss -i ./app/static/css/tailwind.css -o ./app/static/css/main.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.10"
+  }
+}

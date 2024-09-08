@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="p-6">
+        <h1 class="text-3xl font-bold mb-4">{{ post.title }}</h1>
+        <div class="flex justify-between items-center text-sm text-gray-500 mb-6">
+            <span>By {{ post.author.username }}</span>
+            <span>{{ post.date_posted.strftime('%B %d, %Y') }}</span>
+        </div>
+        <div class="prose max-w-none">
+            {{ post.content | safe }}
+        </div>
+    </div>
+</article>
+
+<section class="mt-8">
+    <h2 class="text-2xl font-bold mb-4">Comments</h2>
+    {% if current_user.is_authenticated %}
+    <form hx-post="{{ url_for('comments.add_comment', post_id=post.id) }}" hx-target="#comments-list" hx-swap="afterbegin" class="mb-6">
+        <textarea name="content" rows="3" class="w-full p-2 border rounded-md" placeholder="Write a comment..."></textarea>
+        <button type="submit" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Submit Comment</button>
+    </form>
+    {% endif %}
+    <div id="comments-list">
+        {% for comment in post.comments %}
+        <div class="bg-gray-100 p-4 rounded-md mb-4">
+            <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold">{{ comment.author.username }}</span>
+                <span class="text-sm text-gray-500">{{ comment.date_posted.strftime('%B %d, %Y') }}</span>
+            </div>
+            <p>{{ comment.content }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
