@@ -11,7 +11,7 @@ def add_comment(post_id):
     post = Post.query.get_or_404(post_id)
     content = request.form.get('content')
     if content:
-        comment = Comment(content=content, author=current_user, post=post)
+        comment = Comment(content=content, user_id=current_user.id, post_id=post.id)
         db.session.add(comment)
         db.session.commit()
         flash('Your comment has been added!', 'success')
